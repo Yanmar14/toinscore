@@ -15,15 +15,19 @@
         }
 
         function endGame() {
-            const url = `score_page.html?player1Score=${player1Score}&player2Score=${player2Score}`;
+            // プレーヤー名とスコアを次のページに渡す
+            const params = new URLSearchParams(window.location.search);
+            const player1Name = params.get('player1Name');
+            const player2Name = params.get('player2Name');
+            const url = `score_page.html?player1Name=${encodeURIComponent(player1Name)}&player2Name=${encodeURIComponent(player2Name)}&player1Score=${player1Score}&player2Score=${player2Score}`;
             window.location.href = url;
         }
 
         window.onload = function() {
             // URLからプレーヤーの名前を取得
             const params = new URLSearchParams(window.location.search);
-            document.getElementById('player1Name').innerText = params.get('player1');
-            document.getElementById('player2Name').innerText = params.get('player2');
+            document.getElementById('player1Name').innerText = params.get('player1Name');
+            document.getElementById('player2Name').innerText = params.get('player2Name');
         }
     </script>
 </head>
