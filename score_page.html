@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ゲーム - スコア表示</title>
+    <script>
+        function goBackToStart() {
+            window.location.href = 'index.html'; // 1ページ目のURL
+        }
+
+        window.onload = function() {
+            // URLからスコアを取得
+            const params = new URLSearchParams(window.location.search);
+            const player1Score = params.get('player1Score');
+            const player2Score = params.get('player2Score');
+
+            document.getElementById('player1Score').innerText = player1Score;
+            document.getElementById('player2Score').innerText = player2Score;
+        }
+    </script>
+</head>
+<body>
+    <h1>最終スコア</h1>
+    <p>プレーヤー1: <span id="player1Score"></span></p>
+    <p>プレーヤー2: <span id="player2Score"></span></p>
+    <button onclick="goBackToStart()">スタートページに戻る</button>
+</body>
+</html>
