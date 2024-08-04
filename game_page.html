@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ゲーム - スコア選択</title>
+    <script>
+        let player1Score = 0;
+        let player2Score = 0;
+
+        function addScore(player, score) {
+            if (player === 'player1') {
+                player1Score += score;
+            } else {
+                player2Score += score;
+            }
+        }
+
+        function endGame() {
+            const url = `score_page.html?player1Score=${player1Score}&player2Score=${player2Score}`;
+            window.location.href = url;
+        }
+
+        window.onload = function() {
+            // URLからプレーヤーの名前を取得
+            const params = new URLSearchParams(window.location.search);
+            document.getElementById('player1Name').innerText = params.get('player1');
+            document.getElementById('player2Name').innerText = params.get('player2');
+        }
+    </script>
+</head>
+<body>
+    <h1>スコア選択</h1>
+    <div>
+        <h2 id="player1Name"></h2>
+        <button onclick="addScore('player1', 50)">50</button>
+        <button onclick="addScore('player1', 100)">100</button>
+        <button onclick="addScore('player1', 500)">500</button>
+        <button onclick="addScore('player1', 1000)">1000</button>
+        <button onclick="addScore('player1', 2000)">2000</button>
+    </div>
+    <div>
+        <h2 id="player2Name"></h2>
+        <button onclick="addScore('player2', 50)">50</button>
+        <button onclick="addScore('player2', 100)">100</button>
+        <button onclick="addScore('player2', 500)">500</button>
+        <button onclick="addScore('player2', 1000)">1000</button>
+        <button onclick="addScore('player2', 2000)">2000</button>
+    </div>
+    <button onclick="endGame()">終了</button>
+</body>
+</html>
