@@ -19,7 +19,7 @@
             const params = new URLSearchParams(window.location.search);
             const player1Name = params.get('player1Name');
             const player2Name = params.get('player2Name');
-            const url = `score_page.html?player1Name=${encodeURIComponent(player1Name)}&player2Name=${encodeURIComponent(player2Name)}&player1Score=${player1Score}&player2Score=${player2Score}`;
+            const url = `03-score_display.html?player1Name=${encodeURIComponent(player1Name)}&player2Name=${encodeURIComponent(player2Name)}&player1Score=${player1Score}&player2Score=${player2Score}`;
             window.location.href = url;
         }
 
