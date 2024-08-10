@@ -10,8 +10,8 @@
         window.onload = function() {
             // URLからプレーヤー名とスコアを取得
             const params = new URLSearchParams(window.location.search);
-            const player1Name = params.get('player1');
-            const player2Name = params.get('player2');
+            const player1 = params.get('player1');
+            const player2 = params.get('player2');
             const player1Score = params.get('player1Score');
             const player2Score = params.get('player2Score');
 
