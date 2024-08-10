@@ -4,6 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ゲーム - スコア集計</title>
+    <style>
+        .score-button {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: none;
+            color: white;
+            font-size: 18px;
+            margin: 10px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .score-button:hover {
+            transform: scale(1.1);
+        }
+
+        .score-50 { background-color: #e74c3c; }  /* 赤 */
+        .score-100 { background-color: #3498db; } /* 青 */
+        .score-500 { background-color: #2ecc71; } /* 緑 */
+        .score-1000 { background-color: #f1c40f; } /* 黄 */
+        .score-2000 { background-color: #9b59b6; } /* 紫 */
+    </style>
     <script>
         let player1Score = 0;
         let player2Score = 0;
@@ -34,8 +57,8 @@
         window.onload = function() {
             // URLからプレーヤーの名前を取得
             const params = new URLSearchParams(window.location.search);
-            document.getElementById('player1Name').innerText = params.get('player1Name');
-            document.getElementById('player2Name').innerText = params.get('player2Name');
+            document.getElementById('player1Name').innerText = params.get('player1');
+            document.getElementById('player2Name').innerText = params.get('player2');
         }
     </script>
 </head>
