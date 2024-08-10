@@ -21,7 +21,9 @@
             const userConfirmed = confirm("本当に終了してもよろしいですか？");
             if (userConfirmed) {
                 // ユーザーがOKを選択した場合、次のページに移動
-                const url = `03-score_display.html?player1Score=${player1Score}&player2Score=${player2Score}`;
+                const player1 = document.getElementById('player1Name').innerText;
+                const player2 = document.getElementById('player2Name').innerText;
+                const url = `03-score_display.html?player1Score=${player1Score}&player2Score=${player2Score}&player1=${encodeURIComponent(player1)}&player2=${encodeURIComponent(player2)}`;
                 window.location.href = url;
             } else {
                 // ユーザーがキャンセルを選択した場合、何もしない
