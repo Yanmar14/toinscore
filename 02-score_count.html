@@ -32,8 +32,8 @@
         window.onload = function() {
             // URLからプレーヤーの名前を取得
             const params = new URLSearchParams(window.location.search);
-            document.getElementById('player1Name').innerText = params.get('player1Name');
-            document.getElementById('player2Name').innerText = params.get('player2Name');
+            document.getElementById('player1Name').innerText = params.get('player1');
+            document.getElementById('player2Name').innerText = params.get('player2');
         }
     </script>
 </head>
