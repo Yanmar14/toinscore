@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ゲーム - スコア集計</title>
     <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 20px;
+        }
+
         .score-button {
             width: 80px;
             height: 80px;
@@ -15,6 +23,7 @@
             margin: 10px;
             cursor: pointer;
             transition: transform 0.2s;
+            display: inline-block;
         }
 
         .score-button:hover {
@@ -66,19 +75,19 @@
     <h1>スコア集計</h1>
     <div>
         <h2 id="player1Name"></h2>
-        <button onclick="addScore('player1', 50)">50</button>
-        <button onclick="addScore('player1', 100)">100</button>
-        <button onclick="addScore('player1', 500)">500</button>
-        <button onclick="addScore('player1', 1000)">1000</button>
-        <button onclick="addScore('player1', 2000)">2000</button>
+        <button class="score-button score-50" onclick="addScore('player1', 50)">50</button>
+        <button class="score-button score-100" onclick="addScore('player1', 100)">100</button>
+        <button class="score-button score-500" onclick="addScore('player1', 500)">500</button>
+        <button class="score-button score-1000" onclick="addScore('player1', 1000)">1000</button>
+        <button class="score-button score-2000" onclick="addScore('player1', 2000)">2000</button>
     </div>
     <div>
         <h2 id="player2Name"></h2>
-        <button onclick="addScore('player2', 50)">50</button>
-        <button onclick="addScore('player2', 100)">100</button>
-        <button onclick="addScore('player2', 500)">500</button>
-        <button onclick="addScore('player2', 1000)">1000</button>
-        <button onclick="addScore('player2', 2000)">2000</button>
+        <button class="score-button score-50" onclick="addScore('player2', 50)">50</button>
+        <button class="score-button score-100" onclick="addScore('player2', 100)">100</button>
+        <button class="score-button score-500" onclick="addScore('player2', 500)">500</button>
+        <button class="score-button score-1000" onclick="addScore('player2', 1000)">1000</button>
+        <button class="score-button score-2000" onclick="addScore('player2', 2000)">2000</button>
     </div>
     <button onclick="endGame()">終了</button>
 </body>
