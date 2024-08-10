@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toin Story Mania! 得点管理ページ</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-top: 50px;
+            color: #333;
+        }
+
+        .start-button {
+            font-size: 1.5em;
+            padding: 15px 30px;
+            margin-top: 50px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .start-button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <h1>Toin Story Mania! 得点管理ページ</h1>
+    <button class="start-button" onclick="startGame()">開始</button>
+
+    <script>
+        function startGame() {
+            window.location.href = '01-game_start.html'; // 次のページに移動するURLを指定
+        }
+    </script>
+</body>
+</html>
