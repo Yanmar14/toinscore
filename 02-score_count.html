@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ゲーム - スコア集計</title>
     <script>
         let player1Score = 0;
@@ -15,12 +17,16 @@
         }
 
         function endGame() {
-            // プレーヤー名とスコアを次のページに渡す
-            const params = new URLSearchParams(window.location.search);
-            const player1Name = params.get('player1Name');
-            const player2Name = params.get('player2Name');
-            const url = `03-score_display.html?player1Name=${encodeURIComponent(player1Name)}&player2Name=${encodeURIComponent(player2Name)}&player1Score=${player1Score}&player2Score=${player2Score}`;
-            window.location.href = url;
+            // 確認ダイアログを表示
+            const userConfirmed = confirm("本当に終了してもよろしいですか？");
+            if (userConfirmed) {
+                // ユーザーがOKを選択した場合、次のページに移動
+                const url = `03-score_display.html?player1Score=${player1Score}&player2Score=${player2Score}`;
+                window.location.href = url;
+            } else {
+                // ユーザーがキャンセルを選択した場合、何もしない
+                return false;
+            }
         }
 
         window.onload = function() {
