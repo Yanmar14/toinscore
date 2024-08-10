@@ -49,25 +49,23 @@
         }
 
         function endGame() {
-            // 確認ダイアログを表示
             const userConfirmed = confirm("本当に終了してもよろしいですか？");
             if (userConfirmed) {
-                // ユーザーがOKを選択した場合、次のページに移動
                 const player1 = document.getElementById('player1Name').innerText;
                 const player2 = document.getElementById('player2Name').innerText;
                 const url = `03-score_display.html?player1Score=${player1Score}&player2Score=${player2Score}&player1=${encodeURIComponent(player1)}&player2=${encodeURIComponent(player2)}`;
                 window.location.href = url;
             } else {
-                // ユーザーがキャンセルを選択した場合、何もしない
                 return false;
             }
         }
 
         window.onload = function() {
-            // URLからプレーヤーの名前を取得
             const params = new URLSearchParams(window.location.search);
-            document.getElementById('player1Name').innerText = params.get('player1');
-            document.getElementById('player2Name').innerText = params.get('player2');
+            const player1 = params.get('player1Name');
+            const player2 = params.get('player2Name');
+            document.getElementById('player1Name').innerText = player1;
+            document.getElementById('player2Name').innerText = player2;
         }
     </script>
 </head>
@@ -92,3 +90,4 @@
     <button onclick="endGame()">終了</button>
 </body>
 </html>
+
