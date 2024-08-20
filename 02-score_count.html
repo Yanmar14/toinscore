@@ -40,7 +40,13 @@
         let player1Score = 0;
         let player2Score = 0;
 
+        // 音声ファイルのロード
+        const sound = new Audio('pi-kon.mp3');
+
         function addScore(player, score) {
+            // 音を再生
+            sound.play();
+
             if (player === 'player1') {
                 player1Score += score;
             } else {
@@ -90,4 +96,3 @@
     <button onclick="endGame()">終了</button>
 </body>
 </html>
-
