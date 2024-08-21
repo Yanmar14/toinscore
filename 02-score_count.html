@@ -10,7 +10,7 @@
             text-align: center;
             background-color: #f9f9f9;
             margin: 0;
-            padding: 20px;
+            padding: 10px;
         }
 
         .score-button {
@@ -70,12 +70,20 @@
         let player1Score = 0;
         let player2Score = 0;
 
+        function playSound() {
+            const sound = new Audio('pi-kon.mp3'); // 音声ファイルのロード
+            sound.currentTime = 0; // 再生位置をリセット
+            sound.play(); // 音を再生
+        }
+
         function updateTotalScore() {
             document.getElementById('player1TotalScore').innerText = `合計: ${player1Score}`;
             document.getElementById('player2TotalScore').innerText = `合計: ${player2Score}`;
         }
 
         function addScore(player, score) {
+            playSound(); // スコアを追加するときに音を鳴らす
+
             if (player === 'player1') {
                 player1Score += score;
             } else {
