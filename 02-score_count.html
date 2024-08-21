@@ -40,9 +40,12 @@
         let player1Score = 0;
         let player2Score = 0;
 
+        // 音声ファイルのロード
+        const sound = new Audio('pi-kon.mp3');
+
         function playSound() {
-            // 新しいAudioオブジェクトを毎回作成して再生
-            const sound = new Audio('pi-kon.mp3');
+            // 再生をリセットしてから再生
+            sound.currentTime = 0;
             sound.play();
         }
 
