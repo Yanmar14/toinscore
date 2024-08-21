@@ -1,7 +1,63 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ゲーム - スコア表示</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .score {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        .score span {
+            font-weight: bold;
+            color: #333;
+        }
+
+        .start-button {
+            padding: 15px 30px;
+            font-size: 1.5em;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin-top: 20px;
+        }
+
+        .start-button:hover {
+            background-color: #45a049;
+        }
+    </style>
     <script>
         function goBackToStart() {
             window.location.href = '01-game_start.html'; // 1ページ目のURL
@@ -24,10 +80,11 @@
     </script>
 </head>
 <body>
-    <h1>最終スコア</h1>
-    <p><span id="player1Name"></span>: <span id="player1Score"></span></p>
-    <p><span id="player2Name"></span>: <span id="player2Score"></span></p>
-    <button onclick="goBackToStart()">スタートページに戻る</button>
+    <div class="container">
+        <h1>最終スコア</h1>
+        <p class="score"><span id="player1Name"></span>: <span id="player1Score"></span></p>
+        <p class="score"><span id="player2Name"></span>: <span id="player2Score"></span></p>
+        <button class="start-button" onclick="goBackToStart()">スタートページに戻る</button>
+    </div>
 </body>
 </html>
-
