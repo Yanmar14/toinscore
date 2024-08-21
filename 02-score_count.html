@@ -35,29 +35,53 @@
         .score-500 { background-color: #2ecc71; } /* 緑 */
         .score-1000 { background-color: #f1c40f; } /* 黄 */
         .score-2000 { background-color: #9b59b6; } /* 紫 */
+
+        .footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 30px;
+        }
+
+        .start-button {
+            padding: 15px 30px;
+            font-size: 1.5em;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+            margin-right: 20px;
+        }
+
+        .start-button:hover {
+            background-color: #45a049;
+        }
+
+        .total-score {
+            font-size: 1.5em;
+            color: #333;
+            margin-left: 20px;
+        }
     </style>
     <script>
         let player1Score = 0;
         let player2Score = 0;
 
-        // 音声ファイルのロード
-        const sound = new Audio('pi-kon.mp3');
-
-        function playSound() {
-            // 再生をリセットしてから再生
-            sound.currentTime = 0;
-            sound.play();
+        function updateTotalScore() {
+            const totalScore = player1Score + player2Score;
+            document.getElementById('totalScore').innerText = `合計スコア: ${totalScore}`;
         }
 
         function addScore(player, score) {
-            // 音を再生
-            playSound();
-
             if (player === 'player1') {
                 player1Score += score;
             } else {
                 player2Score += score;
             }
+            updateTotalScore(); // スコアが加算されたら合計を更新
         }
 
         function endGame() {
@@ -78,6 +102,8 @@
             const player2 = params.get('player2Name');
             document.getElementById('player1Name').innerText = player1;
             document.getElementById('player2Name').innerText = player2;
+
+            updateTotalScore(); // 初期合計スコアを設定
         }
     </script>
 </head>
@@ -99,6 +125,9 @@
         <button class="score-button score-1000" onclick="addScore('player2', 1000)">1000</button>
         <button class="score-button score-2000" onclick="addScore('player2', 2000)">2000</button>
     </div>
-    <button onclick="endGame()">終了</button>
+    <div class="footer">
+        <button class="start-button" onclick="endGame()">終了</button>
+        <div class="total-score" id="totalScore">合計スコア: 0</div>
+    </div>
 </body>
 </html>
