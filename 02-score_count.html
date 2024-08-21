@@ -38,7 +38,7 @@
 
         .footer {
             display: flex;
-            justify-content: center;
+            justify-content: space-around; /* プレーヤー1、2のスコア表示を左右に分ける */
             align-items: center;
             margin-top: 30px;
         }
@@ -53,7 +53,6 @@
             cursor: pointer;
             text-decoration: none;
             transition: background-color 0.3s ease;
-            margin-right: 20px;
         }
 
         .start-button:hover {
@@ -65,14 +64,19 @@
             color: #333;
             margin-left: 20px;
         }
+
+        .score-display {
+            font-size: 1.5em;
+            color: #333;
+        }
     </style>
     <script>
         let player1Score = 0;
         let player2Score = 0;
 
         function updateTotalScore() {
-            const totalScore = player1Score + player2Score;
-            document.getElementById('totalScore').innerText = `合計スコア: ${totalScore}`;
+            document.getElementById('player1TotalScore').innerText = `プレーヤー1 合計: ${player1Score}`;
+            document.getElementById('player2TotalScore').innerText = `プレーヤー2 合計: ${player2Score}`;
         }
 
         function addScore(player, score) {
@@ -126,8 +130,9 @@
         <button class="score-button score-2000" onclick="addScore('player2', 2000)">2000</button>
     </div>
     <div class="footer">
+        <div class="score-display" id="player1TotalScore">プレーヤー1 合計: 0</div>
         <button class="start-button" onclick="endGame()">終了</button>
-        <div class="total-score" id="totalScore">合計スコア: 0</div>
+        <div class="score-display" id="player2TotalScore">プレーヤー2 合計: 0</div>
     </div>
 </body>
 </html>
