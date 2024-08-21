@@ -42,7 +42,7 @@
         }
 
         .form-container div {
-            width: 45%;
+            width: 48%; /* 幅を45%から48%に変更 */
         }
 
         label {
@@ -67,15 +67,21 @@
             margin: 30px 0;
         }
 
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
         .additional-text {
             font-size: 1em;
             color: #555;
-            margin-top: 10px;
             text-align: left;
+            flex: 1;
         }
 
         .start-button {
-            display: inline-block;
             padding: 15px 30px;
             font-size: 1.5em;
             color: #fff;
@@ -83,9 +89,6 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
             text-decoration: none;
             transition: background-color 0.3s ease;
         }
@@ -125,8 +128,10 @@
             </div>
         </div>
         <div class="divider"></div>
-        <p class="additional-text">「開始」ボタンはスタッフが操作します。</p>
-        <button class="start-button" onclick="startGame()">開始</button>
+        <div class="footer">
+            <p class="additional-text">「開始」ボタンはスタッフが操作します。</p>
+            <button class="start-button" onclick="startGame()">開始</button>
+        </div>
     </div>
 </body>
 </html>
