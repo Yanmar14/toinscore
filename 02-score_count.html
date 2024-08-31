@@ -10,7 +10,7 @@
             text-align: center;
             background-color: #f9f9f9;
             margin: 0;
-            padding: 10px;
+            padding: 20px;
         }
 
         .score-button {
@@ -35,12 +35,14 @@
         .score-500 { background-color: #2ecc71; } /* 緑 */
         .score-1000 { background-color: #f1c40f; } /* 黄 */
         .score-2000 { background-color: #9b59b6; } /* 紫 */
+        .score-5000 { background-color: #e67e22; } /* オレンジ */
+        .score-10000 { background-color: #34495e; } /* グレー */
 
         .score-display-container {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
 
         .score-display {
@@ -127,6 +129,8 @@
         <button class="score-button score-500" onclick="addScore('player1', 500)">500</button>
         <button class="score-button score-1000" onclick="addScore('player1', 1000)">1000</button>
         <button class="score-button score-2000" onclick="addScore('player1', 2000)">2000</button>
+        <button class="score-button score-5000" onclick="addScore('player1', 5000)">5000</button>
+        <button class="score-button score-10000" onclick="addScore('player1', 10000)">10000</button>
     </div>
     <div class="score-display-container">
         <h2 id="player2Name"></h2>
@@ -138,6 +142,8 @@
         <button class="score-button score-500" onclick="addScore('player2', 500)">500</button>
         <button class="score-button score-1000" onclick="addScore('player2', 1000)">1000</button>
         <button class="score-button score-2000" onclick="addScore('player2', 2000)">2000</button>
+        <button class="score-button score-5000" onclick="addScore('player2', 5000)">5000</button>
+        <button class="score-button score-10000" onclick="addScore('player2', 10000)">10000</button>
     </div>
     <button class="start-button" onclick="endGame()">終了</button>
 </body>
