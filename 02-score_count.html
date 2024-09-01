@@ -71,20 +71,30 @@
     <script>
         let player1Score = 0;
         let player2Score = 0;
+        let milestones = [500, 1000, 2000, 5000, 10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000];
+        let nextMilestoneIndex = 0;
 
-        function playSound() {
-            const sound = new Audio('pi-kon.mp3'); // 音声ファイルのロード
-            sound.currentTime = 0; // 再生位置をリセット
-            sound.play(); // 音を再生
+        function playSound(filename) {
+            const sound = new Audio(filename);
+            sound.play();
+        }
+
+        function checkMilestone(totalScore) {
+            if (nextMilestoneIndex < milestones.length && totalScore >= milestones[nextMilestoneIndex]) {
+                playSound(`${milestones[nextMilestoneIndex]}_points_surpassed.mp3`);
+                nextMilestoneIndex++;
+            }
         }
 
         function updateTotalScore() {
+            const totalScore = player1Score + player2Score;
             document.getElementById('player1TotalScore').innerText = `合計: ${player1Score}`;
             document.getElementById('player2TotalScore').innerText = `合計: ${player2Score}`;
+            checkMilestone(totalScore); // 合計スコアをチェック
         }
 
         function addScore(player, score) {
-            playSound(); // スコアを追加するときに音を鳴らす
+            playSound('pi-kon.mp3'); // スコアを追加するときに音を鳴らす
 
             if (player === 'player1') {
                 player1Score += score;
