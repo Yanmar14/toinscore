@@ -71,7 +71,7 @@
     <script>
         let player1Score = 0;
         let player2Score = 0;
-        let milestones = [500, 1000, 2000, 5000, 10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000];
+        let milestones = [500, 1000, 2000, 5000, 10000, 20000, 50000];
         let player1NextMilestoneIndex = 0;
         let player2NextMilestoneIndex = 0;
 
@@ -82,15 +82,19 @@
 
         function checkMilestone(player, score) {
             let playerNextMilestoneIndex = player === 'player1' ? player1NextMilestoneIndex : player2NextMilestoneIndex;
+            let milestoneReached = -1;
 
+            // ループで複数のマイルストーンを飛ばして超えた場合、最後に到達したマイルストーンの音声を鳴らす
             while (playerNextMilestoneIndex < milestones.length && score >= milestones[playerNextMilestoneIndex]) {
+                milestoneReached = playerNextMilestoneIndex; // マイルストーンを記録
                 playerNextMilestoneIndex++;
             }
 
-            if (playerNextMilestoneIndex > 0) {
-                playSound(`${player === 'player1' ? 'p1' : 'p2'}_${milestones[playerNextMilestoneIndex - 1]}.mp3`);
+            if (milestoneReached >= 0) {
+                playSound(`${player === 'player1' ? 'p1' : 'p2'}_${milestones[milestoneReached]}.mp3`);
             }
 
+            // 次にチェックすべきマイルストーンのインデックスを更新
             if (player === 'player1') {
                 player1NextMilestoneIndex = playerNextMilestoneIndex;
             } else {
