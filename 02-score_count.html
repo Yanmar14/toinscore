@@ -11,18 +11,6 @@
             background-color: #f9f9f9;
             margin: 0;
             padding: 20px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh; /* 縦の中央揃え */
-        }
-
-        .score-button-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap; /* ボタンを折り返して配置 */
-            margin-bottom: 20px;
         }
 
         .score-button {
@@ -83,9 +71,6 @@
     <script>
         let player1Score = 0;
         let player2Score = 0;
-        let lastScore = 0;  // 最後に押したスコアを保存
-        let lastPlayer = '';  // 最後に押したプレーヤー
-
         let milestones = [500, 1000, 2000, 5000, 10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000];
         let player1NextMilestoneIndex = 0;
         let player2NextMilestoneIndex = 0;
@@ -132,28 +117,7 @@
                 player2Score += score;
                 checkMilestone('player2', player2Score); // プレイヤー2のスコアをチェック
             }
-
-            // 最後に押したボタンの記録
-            document.getElementById('lastPressedButton').innerText = `最後に押したボタン: ${score}`;
-            lastScore = score;
-            lastPlayer = player;
-
             updateTotalScore(); // スコアが加算されたら合計を更新
-        }
-
-        function undoLast() {
-            if (lastPlayer === 'player1') {
-                player1Score -= lastScore;
-            } else if (lastPlayer === 'player2') {
-                player2Score -= lastScore;
-            }
-
-            // 「最後に押したボタン」表示のリセット
-            document.getElementById('lastPressedButton').innerText = '最後に押したボタン: -';
-            lastScore = 0;
-            lastPlayer = '';
-
-            updateTotalScore(); // 合計スコアを更新
         }
 
         function endGame() {
@@ -185,7 +149,7 @@
         <h2 id="player1Name"></h2>
         <div class="score-display" id="player1TotalScore">合計: 0</div>
     </div>
-    <div class="score-button-container">
+    <div>
         <button class="score-button score-50" onclick="addScore('player1', 50)">50</button>
         <button class="score-button score-100" onclick="addScore('player1', 100)">100</button>
         <button class="score-button score-500" onclick="addScore('player1', 500)">500</button>
@@ -194,12 +158,11 @@
         <button class="score-button score-5000" onclick="addScore('player1', 5000)">5000</button>
         <button class="score-button score-10000" onclick="addScore('player1', 10000)">10000</button>
     </div>
-
     <div class="score-display-container">
         <h2 id="player2Name"></h2>
         <div class="score-display" id="player2TotalScore">合計: 0</div>
     </div>
-    <div class="score-button-container">
+    <div>
         <button class="score-button score-50" onclick="addScore('player2', 50)">50</button>
         <button class="score-button score-100" onclick="addScore('player2', 100)">100</button>
         <button class="score-button score-500" onclick="addScore('player2', 500)">500</button>
@@ -208,13 +171,6 @@
         <button class="score-button score-5000" onclick="addScore('player2', 5000)">5000</button>
         <button class="score-button score-10000" onclick="addScore('player2', 10000)">10000</button>
     </div>
-
-    <!-- 最後に押したボタンと戻るボタン -->
-    <div>
-        <p id="lastPressedButton">最後に押したボタン: -</p>
-        <button class="start-button" id="undoButton" onclick="undoLast()">戻る</button>
-    </div>
-
     <button class="start-button" onclick="endGame()">終了</button>
 </body>
 </html>
