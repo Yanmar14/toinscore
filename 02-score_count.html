@@ -48,7 +48,7 @@
         .score-display {
             font-size: 1.5em;
             color: #333;
-            margin-left: 10px; /* 名前とスコアの間にスペースを追加 */
+            margin-left: 10px;
         }
 
         .start-button {
@@ -67,6 +67,11 @@
         .start-button:hover {
             background-color: #45a049;
         }
+
+        #timer {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
     </style>
     <script>
         let player1Score = 0;
@@ -74,6 +79,8 @@
         let milestones = [500, 1000, 2000, 5000, 10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000];
         let player1NextMilestoneIndex = 0;
         let player2NextMilestoneIndex = 0;
+        let timer;
+        let secondsElapsed = 0;
 
         function playSound(filename) {
             const sound = new Audio(filename);
@@ -84,9 +91,8 @@
             let playerNextMilestoneIndex = player === 'player1' ? player1NextMilestoneIndex : player2NextMilestoneIndex;
             let milestoneReached = -1;
 
-            // ループで複数のマイルストーンを飛ばして超えた場合、最後に到達したマイルストーンの音声を鳴らす
             while (playerNextMilestoneIndex < milestones.length && score >= milestones[playerNextMilestoneIndex]) {
-                milestoneReached = playerNextMilestoneIndex; // マイルストーンを記録
+                milestoneReached = playerNextMilestoneIndex;
                 playerNextMilestoneIndex++;
             }
 
@@ -94,7 +100,6 @@
                 playSound(`${player === 'player1' ? 'p1' : 'p2'}_${milestones[milestoneReached]}.mp3`);
             }
 
-            // 次にチェックすべきマイルストーンのインデックスを更新
             if (player === 'player1') {
                 player1NextMilestoneIndex = playerNextMilestoneIndex;
             } else {
@@ -108,21 +113,22 @@
         }
 
         function addScore(player, score) {
-            playSound('pi-kon.mp3'); // スコアを追加するときに音を鳴らす
+            playSound('pi-kon.mp3');
 
             if (player === 'player1') {
                 player1Score += score;
-                checkMilestone('player1', player1Score); // プレイヤー1のスコアをチェック
+                checkMilestone('player1', player1Score);
             } else {
                 player2Score += score;
-                checkMilestone('player2', player2Score); // プレイヤー2のスコアをチェック
+                checkMilestone('player2', player2Score);
             }
-            updateTotalScore(); // スコアが加算されたら合計を更新
+            updateTotalScore();
         }
 
         function endGame() {
             const userConfirmed = confirm("本当に終了してもよろしいですか？");
             if (userConfirmed) {
+                playSound('finish_voice.mp3');
                 const player1 = document.getElementById('player1Name').innerText;
                 const player2 = document.getElementById('player2Name').innerText;
                 const url = `03-score_display.html?player1Score=${player1Score}&player2Score=${player2Score}&player1=${encodeURIComponent(player1)}&player2=${encodeURIComponent(player2)}`;
@@ -132,6 +138,23 @@
             }
         }
 
+        function updateTimer() {
+            secondsElapsed++;
+            document.getElementById('timer').innerText = `${secondsElapsed}秒`;
+
+            if (secondsElapsed === 30) {
+                playSound('count30.mp3');
+            } else if (secondsElapsed === 60) {
+                playSound('count60.mp3');
+            } else if (secondsElapsed === 90) {
+                document.getElementById('timer').style.color = 'red';
+            }
+        }
+
+        function startTimer() {
+            timer = setInterval(updateTimer, 1000);
+        }
+
         window.onload = function() {
             const params = new URLSearchParams(window.location.search);
             const player1 = params.get('player1Name');
@@ -139,12 +162,14 @@
             document.getElementById('player1Name').innerText = player1;
             document.getElementById('player2Name').innerText = player2;
 
-            updateTotalScore(); // 初期合計スコアを設定
+            updateTotalScore();
+            startTimer();
         }
     </script>
 </head>
 <body>
     <h1>スコア集計</h1>
+    <div id="timer" style="color: black;">0秒</div>
     <div class="score-display-container">
         <h2 id="player1Name"></h2>
         <div class="score-display" id="player1TotalScore">合計: 0</div>
@@ -174,3 +199,4 @@
     <button class="start-button" onclick="endGame()">終了</button>
 </body>
 </html>
+
