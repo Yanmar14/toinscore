@@ -59,6 +59,11 @@
         }
     </style>
     <script>
+        function playFinishVoice() {
+            const audio = new Audio('finish_voice.mp3');
+            audio.play();
+        }
+
         function goBackToStart() {
             window.location.href = '01-game_start.html'; // 1ページ目のURL
         }
@@ -76,6 +81,9 @@
             document.getElementById('player2Name').innerText = player2;
             document.getElementById('player1Score').innerText = player1Score;
             document.getElementById('player2Score').innerText = player2Score;
+
+            // 音声再生
+            playFinishVoice();
         }
     </script>
 </head>
