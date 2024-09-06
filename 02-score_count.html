@@ -147,7 +147,7 @@
             } else if (secondsElapsed === 60) {
                 playSound('count60.mp3');
             } else if (secondsElapsed === 90) {
-                playSound('count90.mp3');
+                playSound('count90.mp3'); // 90秒経過時にcount90.mp3を再生
                 document.getElementById('timer').style.color = 'red';
             }
         }
@@ -200,4 +200,3 @@
     <button class="start-button" onclick="endGame()">終了</button>
 </body>
 </html>
-
