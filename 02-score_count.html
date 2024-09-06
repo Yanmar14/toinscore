@@ -13,19 +13,6 @@
             padding: 20px;
         }
 
-        .timer {
-            font-size: 2em;
-            margin-bottom: 20px;
-            color: #000; /* 最初は黒 */
-        }
-
-        .score-button-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            margin-bottom: 20px;
-        }
-
         .score-button {
             width: 80px;
             height: 80px;
@@ -43,13 +30,26 @@
             transform: scale(1.1);
         }
 
-        .score-50 { background-color: #e74c3c; }  
-        .score-100 { background-color: #3498db; } 
-        .score-500 { background-color: #2ecc71; }  
-        .score-1000 { background-color: #f1c40f; }  
-        .score-2000 { background-color: #9b59b6; }  
-        .score-5000 { background-color: #e67e22; }  
-        .score-10000 { background-color: #34495e; }  
+        .score-50 { background-color: #e74c3c; }  /* 赤 */
+        .score-100 { background-color: #3498db; } /* 青 */
+        .score-500 { background-color: #2ecc71; } /* 緑 */
+        .score-1000 { background-color: #f1c40f; } /* 黄 */
+        .score-2000 { background-color: #9b59b6; } /* 紫 */
+        .score-5000 { background-color: #e67e22; } /* オレンジ */
+        .score-10000 { background-color: #34495e; } /* グレー */
+
+        .score-display-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .score-display {
+            font-size: 1.5em;
+            color: #333;
+            margin-left: 10px; /* 名前とスコアの間にスペースを追加 */
+        }
 
         .start-button {
             padding: 15px 30px;
@@ -61,6 +61,7 @@
             cursor: pointer;
             text-decoration: none;
             transition: background-color 0.3s ease;
+            margin-top: 30px;
         }
 
         .start-button:hover {
@@ -68,79 +69,87 @@
         }
     </style>
     <script>
-        let timer; // タイマーID
-        let seconds = 0; // 秒数をカウント
-
-        function startTimer() {
-            timer = setInterval(function() {
-                seconds++;
-
-                // 90秒経過したらタイマーを赤字に変更
-                if (seconds >= 90) {
-                    document.getElementById('timer').style.color = 'red';
-                }
-
-                document.getElementById('timer').innerText = seconds + '秒';
-
-                // 30秒経過時に "count30.mp3" を再生
-                if (seconds === 30) {
-                    playSound('count30.mp3');
-                }
-
-                // 60秒経過時に "count60.mp3" を再生
-                if (seconds === 60) {
-                    playSound('count60.mp3');
-                }
-
-                // 90秒までカウントしたら止める (必要に応じてコメントアウトして調整可能)
-                // if (seconds >= 90) {
-                //     clearInterval(timer);
-                // }
-            }, 1000); // 1秒ごとにカウント
-        }
+        let player1Score = 0;
+        let player2Score = 0;
+        let milestones = [500, 1000, 2000, 5000, 10000, 20000, 30000, 40000, 50000, 60000, 70000, 80000, 90000, 100000];
+        let player1NextMilestoneIndex = 0;
+        let player2NextMilestoneIndex = 0;
 
         function playSound(filename) {
-            const audio = new Audio(filename);
-            audio.play();
+            const sound = new Audio(filename);
+            sound.play();
+        }
+
+        function checkMilestone(player, score) {
+            let playerNextMilestoneIndex = player === 'player1' ? player1NextMilestoneIndex : player2NextMilestoneIndex;
+            let milestoneReached = -1;
+
+            // ループで複数のマイルストーンを飛ばして超えた場合、最後に到達したマイルストーンの音声を鳴らす
+            while (playerNextMilestoneIndex < milestones.length && score >= milestones[playerNextMilestoneIndex]) {
+                milestoneReached = playerNextMilestoneIndex; // マイルストーンを記録
+                playerNextMilestoneIndex++;
+            }
+
+            if (milestoneReached >= 0) {
+                playSound(`${player === 'player1' ? 'p1' : 'p2'}_${milestones[milestoneReached]}.mp3`);
+            }
+
+            // 次にチェックすべきマイルストーンのインデックスを更新
+            if (player === 'player1') {
+                player1NextMilestoneIndex = playerNextMilestoneIndex;
+            } else {
+                player2NextMilestoneIndex = playerNextMilestoneIndex;
+            }
+        }
+
+        function updateTotalScore() {
+            document.getElementById('player1TotalScore').innerText = `合計: ${player1Score}`;
+            document.getElementById('player2TotalScore').innerText = `合計: ${player2Score}`;
+        }
+
+        function addScore(player, score) {
+            playSound('pi-kon.mp3'); // スコアを追加するときに音を鳴らす
+
+            if (player === 'player1') {
+                player1Score += score;
+                checkMilestone('player1', player1Score); // プレイヤー1のスコアをチェック
+            } else {
+                player2Score += score;
+                checkMilestone('player2', player2Score); // プレイヤー2のスコアをチェック
+            }
+            updateTotalScore(); // スコアが加算されたら合計を更新
         }
 
         function endGame() {
-            clearInterval(timer); // タイマーを停止
             const userConfirmed = confirm("本当に終了してもよろしいですか？");
             if (userConfirmed) {
-                // "finish_voice.mp3" を再生
-                playSound('finish_voice.mp3');
-
-                // 結果ページに移動
                 const player1 = document.getElementById('player1Name').innerText;
                 const player2 = document.getElementById('player2Name').innerText;
                 const url = `03-score_display.html?player1Score=${player1Score}&player2Score=${player2Score}&player1=${encodeURIComponent(player1)}&player2=${encodeURIComponent(player2)}`;
                 window.location.href = url;
+            } else {
+                return false;
             }
         }
 
         window.onload = function() {
-            // URLパラメータからプレーヤー名を取得
             const params = new URLSearchParams(window.location.search);
             const player1 = params.get('player1Name');
             const player2 = params.get('player2Name');
             document.getElementById('player1Name').innerText = player1;
             document.getElementById('player2Name').innerText = player2;
 
-            // タイマーを開始
-            startTimer();
+            updateTotalScore(); // 初期合計スコアを設定
         }
     </script>
 </head>
 <body>
     <h1>スコア集計</h1>
-
-    <!-- タイマー -->
-    <div id="timer" class="timer">0秒</div>
-
-    <!-- プレーヤー1のスコア表示 -->
-    <div class="score-button-container">
+    <div class="score-display-container">
         <h2 id="player1Name"></h2>
+        <div class="score-display" id="player1TotalScore">合計: 0</div>
+    </div>
+    <div>
         <button class="score-button score-50" onclick="addScore('player1', 50)">50</button>
         <button class="score-button score-100" onclick="addScore('player1', 100)">100</button>
         <button class="score-button score-500" onclick="addScore('player1', 500)">500</button>
@@ -149,10 +158,11 @@
         <button class="score-button score-5000" onclick="addScore('player1', 5000)">5000</button>
         <button class="score-button score-10000" onclick="addScore('player1', 10000)">10000</button>
     </div>
-
-    <!-- プレーヤー2のスコア表示 -->
-    <div class="score-button-container">
+    <div class="score-display-container">
         <h2 id="player2Name"></h2>
+        <div class="score-display" id="player2TotalScore">合計: 0</div>
+    </div>
+    <div>
         <button class="score-button score-50" onclick="addScore('player2', 50)">50</button>
         <button class="score-button score-100" onclick="addScore('player2', 100)">100</button>
         <button class="score-button score-500" onclick="addScore('player2', 500)">500</button>
@@ -161,7 +171,6 @@
         <button class="score-button score-5000" onclick="addScore('player2', 5000)">5000</button>
         <button class="score-button score-10000" onclick="addScore('player2', 10000)">10000</button>
     </div>
-
     <button class="start-button" onclick="endGame()">終了</button>
 </body>
 </html>
